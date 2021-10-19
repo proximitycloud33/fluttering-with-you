@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttering_with_you/screens/detail_screen.dart';
-// import 'package:fluttering_with_you/screens/home_page.dart';
+import 'package:fluttering_with_you/screens/home_page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Fluttering With You',
-      home: DetailScreen(),
+      home: HomePage(),
     );
   }
 }
