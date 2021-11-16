@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 abstract class ThemeText {
-  static const TextStyle headingOne = TextStyle(
+  static TextStyle headingOne = TextStyle(
     fontFamily: 'Poppins',
     color: Colors.white,
-    fontSize: 20,
+    fontSize: 15.sp,
     fontWeight: FontWeight.w500,
   );
-  static const TextStyle paragraph = TextStyle(
+  static TextStyle paragraph = TextStyle(
     fontFamily: 'Poppins',
     color: Colors.white,
-    fontSize: 13,
+    fontSize: 10.sp,
     fontWeight: FontWeight.w400,
     height: 2,
   );

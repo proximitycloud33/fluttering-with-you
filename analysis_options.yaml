@@ -26,6 +26,7 @@ linter:
     # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
     sized_box_for_whitespace: false
     avoid_unnecessary_containers: false
+    prefer_const_constructors: false
     
 
 # Additional information about this file can be found at

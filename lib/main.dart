@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttering_with_you/screens/detail_screen.dart';
 import 'package:fluttering_with_you/screens/home_page.dart';
+import 'package:sizer/sizer.dart';
 
 void main() => runApp(const MyApp());
 
@@ -9,10 +10,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Fluttering With You',
-      home: HomePage(),
+    return Sizer(
+      builder: (context, orientation, deviceType) {
+        return const MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Fluttering With You',
+          home: DetailScreen(),
+        );
+      },
     );
   }
 }

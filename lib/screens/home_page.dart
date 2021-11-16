@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttering_with_you/utils/constants.dart';
 import 'package:fluttering_with_you/utils/styles.dart';
+import 'package:sizer/sizer.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -20,8 +21,8 @@ class HomePage extends StatelessWidget {
         itemCount: 4,
         itemBuilder: (context, index) {
           return Container(
-            width: 388.0,
-            height: 300.0,
+            width: 100.h,
+            height: 70.w,
             margin: const EdgeInsets.symmetric(horizontal: 20.0),
             decoration: const BoxDecoration(
               color: AppColor.secondaryColor,
@@ -32,8 +33,8 @@ class HomePage extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  width: 320.0,
-                  height: 100.0,
+                  width: 80.w,
+                  height: 12.h,
                   margin: const EdgeInsets.all(20.0),
                   child: const Placeholder(color: AppColor.accentColor),
                 ),
@@ -41,7 +42,7 @@ class HomePage extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text('Container', style: ThemeText.headingOne),
                       SizedBox(height: 5.0),
                       Text(
