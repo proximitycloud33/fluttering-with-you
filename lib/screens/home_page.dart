@@ -36,7 +36,7 @@ class HomePage extends StatelessWidget {
                   width: 80.w,
                   height: 12.h,
                   margin: const EdgeInsets.all(20.0),
-                  child: const Placeholder(color: AppColor.accentColor),
+                  child: Image.asset('lib/assets/images/Testing.jpg'),
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 20.0),
