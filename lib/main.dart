@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+// screen & widgets
 import 'package:fluttering_with_you/screens/detail_screen.dart';
-import 'package:fluttering_with_you/screens/home_page.dart';
+import 'package:fluttering_with_you/screens/home_screen.dart';
+import 'package:fluttering_with_you/screens/code_editor_screen.dart';
 import 'package:fluttering_with_you/widget/tab_item.dart';
+// packages
 import 'package:sizer/sizer.dart';
+// firstore
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -28,7 +32,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   static const List<Widget> _widget = [
-    HomePage(),
+    HomeScreen(),
+    CodeEditorScreen(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -36,11 +41,20 @@ class _MyAppState extends State<MyApp> {
       builder: (context, orientation, deviceType) {
         return MaterialApp(
           title: 'Fluttering With You',
-          home: Scaffold(
-            body: _widget.elementAt(_selectedIndex),
-            bottomNavigationBar: myBottomNavigationBar(
-              selectedIndex: _selectedIndex,
-              onItemTapped: _onItemTapped,
+          home: SafeArea(
+            child: Scaffold(
+              // indexed stack
+              body: IndexedStack(
+                index: _selectedIndex,
+                children: const [
+                  HomeScreen(),
+                  CodeEditorScreen(),
+                ],
+              ),
+              bottomNavigationBar: myBottomNavigationBar(
+                selectedIndex: _selectedIndex,
+                onItemTapped: _onItemTapped,
+              ),
             ),
           ),
         );

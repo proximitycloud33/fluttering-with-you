@@ -18,7 +18,7 @@ BottomNavigationBar myBottomNavigationBar(
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.code),
-        label: 'Tambah Materi',
+        label: 'Dart Playground',
       ),
     ],
   );
