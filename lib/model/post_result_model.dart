@@ -52,7 +52,8 @@ class PostResult {
       var jsonObject = json.decode(apiResult.body);
       return PostResult.createPostResult(jsonObject);
     } else {
-      throw Exception('Failed to connect to the server');
+      var jsonObject = json.decode(apiResult.body);
+      return PostResult.createPostResult(jsonObject);
     }
   }
 }

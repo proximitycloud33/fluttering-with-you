@@ -5,6 +5,7 @@ import 'package:fluttering_with_you/utils/constants.dart';
 import 'package:fluttering_with_you/utils/styles.dart';
 import 'package:highlight/languages/dart.dart';
 import 'package:flutter_highlight/themes/atelier-sulphurpool-dark.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CodeEditorScreen extends StatefulWidget {
   const CodeEditorScreen({Key? key}) : super(key: key);
@@ -13,9 +14,13 @@ class CodeEditorScreen extends StatefulWidget {
   _CodeEditorScreenState createState() => _CodeEditorScreenState();
 }
 
-class _CodeEditorScreenState extends State<CodeEditorScreen> {
+class _CodeEditorScreenState extends State<CodeEditorScreen>
+    with AutomaticKeepAliveClientMixin {
   CodeController? _codeController;
   PostResult? postResult;
+
+  @override
+  bool get wantKeepAlive => true;
   @override
   void initState() {
     super.initState();
@@ -41,7 +46,7 @@ class _CodeEditorScreenState extends State<CodeEditorScreen> {
           flex: 2,
           child: CodeField(
             controller: _codeController!,
-            textStyle: TextStyle(fontFamily: 'SourceCode'),
+            textStyle: GoogleFonts.firaCode(letterSpacing: -0.2),
             background: AppColor.primaryColor,
             expands: true,
             wrap: true,

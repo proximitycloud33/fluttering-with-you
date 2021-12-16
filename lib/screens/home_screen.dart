@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:fluttering_with_you/screens/detail_screen.dart';
+import 'package:fluttering_with_you/screens/material_detail_screen.dart';
 import 'package:fluttering_with_you/utils/constants.dart';
 import 'package:fluttering_with_you/utils/styles.dart';
 import 'package:sizer/sizer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluttering_with_you/screens/list_material_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
+  String greeting() {
+    var hour = DateTime.now().hour;
+    if (hour < 12) {
+      return 'Pagi';
+    }
+    if (hour < 17) {
+      return 'Siang';
+    }
+    return 'Malam';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,78 +32,126 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: AppColor.primaryColor,
       ),
       backgroundColor: AppColor.primaryColor,
-      body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-        stream: FirebaseFirestore.instance
-            .collection('material')
-            .withConverter<Map<String, dynamic>>(
-              fromFirestore: (snapshot, options) =>
-                  snapshot.data() ?? Map<String, dynamic>(),
-              toFirestore: (value, options) => Map<String, dynamic>.from(value),
-            )
-            .snapshots(),
-        builder: (context, snapshot) {
-          int? itemLength = snapshot.data?.docs.length;
-          if (snapshot.hasData) {
-            return ListView.builder(
-              itemCount: itemLength,
-              itemBuilder: (context, index) {
-                Map<String, dynamic> docs = snapshot.data!.docs[index].data();
-                return Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(
-                        builder: (context) {
-                          return DetailScreen(
-                            materialControllerText: docs['material'],
-                            title: docs['title'],
-                          );
-                        },
-                      ));
-                    },
-                    child: Container(
-                      width: 100.h,
-                      height: 35.w,
-                      margin: const EdgeInsets.symmetric(horizontal: 20.0),
-                      decoration: const BoxDecoration(
-                        color: AppColor.secondaryColor,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(7.0),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                width: 90.w,
+                height: 35.h,
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 100.w,
+                        height: 20.h,
+                        child: Image.asset(
+                          'lib/assets/images/Coding_Outline.png',
+                          width: 100.w,
+                          height: 100.h,
+                          fit: BoxFit.cover,
                         ),
                       ),
-                      child: Column(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.symmetric(
-                              horizontal: 20.0,
-                              vertical: 10.0,
+                      Text(
+                        'Selamat ${greeting()}',
+                        style: ThemeText.headingOne,
+                      ),
+                      SizedBox(height: 1.h),
+                      Text(
+                        'Ayok semangat menimbah ilmu lebih baik. Mau Belajar apa hari ini?',
+                        style: ThemeText.paragraph,
+                      ),
+                    ],
+                  ),
+                ),
+                decoration: BoxDecoration(
+                  color: AppColor.secondaryColor,
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+              ),
+              SizedBox(height: 3.h),
+              InkWell(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return ListMaterialScreen();
+                    },
+                  ));
+                },
+                child: Ink(
+                  decoration: BoxDecoration(
+                    color: AppColor.secondaryColor,
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: Container(
+                    width: 90.w,
+                    height: 15.h,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Dart',
+                              style: ThemeText.headingOne,
                             ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(docs['title'],
-                                    style: ThemeText.headingOne),
-                                SizedBox(height: 5.0),
-                                Text(
-                                  docs['description'],
-                                  style: ThemeText.paragraph,
-                                  // overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                            Icon(
+                              Icons.chevron_right,
+                              color: AppColor.accentColor,
+                              size: 10.w,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                );
-              },
-            );
-          } else {
-            return Text('No Data', style: ThemeText.paragraph);
-          }
-        },
+                ),
+              ),
+              SizedBox(height: 3.h),
+              InkWell(
+                onTap: () {},
+                child: Ink(
+                  decoration: BoxDecoration(
+                    color: AppColor.secondaryColor,
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: Container(
+                    width: 90.w,
+                    height: 15.h,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Flutter',
+                              style: ThemeText.headingOne,
+                            ),
+                            Icon(
+                              Icons.chevron_right,
+                              color: AppColor.accentColor,
+                              size: 10.w,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

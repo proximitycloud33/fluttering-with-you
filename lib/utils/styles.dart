@@ -13,6 +13,15 @@ abstract class ThemeText {
     color: Colors.white,
     fontSize: 10.sp,
     fontWeight: FontWeight.w400,
-    height: 2,
+    height: 1.3,
+  );
+  static TextStyle material = TextStyle(
+    fontFamily: 'Poppins',
+    color: Colors.white,
+    fontSize: 11.sp,
+    fontWeight: FontWeight.w400,
+    height: 1.5,
+    wordSpacing: 0.8,
+    letterSpacing: 0.3,
   );
 }
