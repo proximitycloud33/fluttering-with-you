@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:fluttering_with_you/screens/material_detail_screen.dart';
 import 'package:fluttering_with_you/utils/constants.dart';
@@ -14,8 +16,11 @@ class HomeScreen extends StatelessWidget {
     if (hour < 12) {
       return 'Pagi';
     }
-    if (hour < 17) {
+    if (hour < 15) {
       return 'Siang';
+    }
+    if (hour < 19) {
+      return 'Sore';
     }
     return 'Malam';
   }
@@ -50,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       Container(
                         width: 100.w,
-                        height: 20.h,
+                        height: 18.h,
                         child: Image.asset(
                           'lib/assets/images/Coding_Outline.png',
                           width: 100.w,
@@ -64,7 +69,8 @@ class HomeScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 1.h),
                       Text(
-                        'Ayok semangat menimbah ilmu lebih baik. Mau Belajar apa hari ini?',
+                        Greetings.spiritGreetings[Random().nextInt(2)] +
+                            ', Mau belajar apa hari ini? ',
                         style: ThemeText.paragraph,
                       ),
                     ],
@@ -80,7 +86,9 @@ class HomeScreen extends StatelessWidget {
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
-                      return ListMaterialScreen();
+                      return ListMaterialScreen(
+                        materialName: 'dart',
+                      );
                     },
                   ));
                 },
@@ -117,7 +125,15 @@ class HomeScreen extends StatelessWidget {
               ),
               SizedBox(height: 3.h),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return ListMaterialScreen(
+                        materialName: 'flutter',
+                      );
+                    },
+                  ));
+                },
                 child: Ink(
                   decoration: BoxDecoration(
                     color: AppColor.secondaryColor,

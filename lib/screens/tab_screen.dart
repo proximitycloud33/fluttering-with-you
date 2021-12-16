@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttering_with_you/screens/code_editor_screen.dart';
+import 'package:fluttering_with_you/screens/live_preview_screen.dart';
 import 'package:fluttering_with_you/screens/material_detail_screen.dart';
 import 'package:fluttering_with_you/utils/constants.dart';
 import 'package:fluttering_with_you/utils/styles.dart';
@@ -7,10 +8,12 @@ import 'package:fluttering_with_you/utils/styles.dart';
 class TabScreen extends StatefulWidget {
   final String materialControllerText;
   final String materialTitle;
+  final List<String> materialTags;
   const TabScreen({
     Key? key,
     required this.materialControllerText,
     required this.materialTitle,
+    required this.materialTags,
   }) : super(key: key);
 
   @override
@@ -62,20 +65,35 @@ class _TabScreenState extends State<TabScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.code),
-                        SizedBox(width: 5.0),
-                        Text('Live Code', style: ThemeText.paragraph),
+                        if (widget.materialTags
+                            .any((e) => e.contains('dart'))) ...[
+                          Icon(Icons.code),
+                          SizedBox(width: 5.0),
+                          Text('Live Code', style: ThemeText.paragraph),
+                        ] else ...[
+                          Icon(Icons.phone_android),
+                          SizedBox(width: 5.0),
+                          Text('Live Preview', style: ThemeText.paragraph),
+                        ],
                       ],
                     ),
                   ),
                 ]),
           ),
           body: TabBarView(children: [
-            MaterialDetailScreen(
-              materialControllerText: widget.materialControllerText,
-              title: widget.materialTitle,
-            ),
-            CodeEditorScreen(),
+            if (widget.materialTags.any((e) => e.contains('dart'))) ...[
+              MaterialDetailScreen(
+                materialControllerText: widget.materialControllerText,
+                title: widget.materialTitle,
+              ),
+              CodeEditorScreen(),
+            ] else ...[
+              MaterialDetailScreen(
+                materialControllerText: widget.materialControllerText,
+                title: widget.materialTitle,
+              ),
+              LivePreview(flutterMaterialTitle: widget.materialTitle),
+            ]
           ]),
         ),
       ),

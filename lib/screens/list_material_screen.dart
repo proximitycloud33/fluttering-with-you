@@ -8,14 +8,16 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ListMaterialScreen extends StatelessWidget {
-  const ListMaterialScreen({Key? key}) : super(key: key);
+  final String materialName;
+  const ListMaterialScreen({Key? key, required this.materialName})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final firstoreStream = FirebaseFirestore.instance
         .collection('material')
         .orderBy('createdAt')
-        .where('tags', arrayContainsAny: ['dart'])
+        .where('tags', arrayContainsAny: [materialName])
         .withConverter<Map<String, dynamic>>(
           fromFirestore: (snapshot, options) =>
               snapshot.data() ?? <String, dynamic>{},
@@ -61,6 +63,7 @@ class ListMaterialScreen extends StatelessWidget {
                           return TabScreen(
                             materialControllerText: docs['material'],
                             materialTitle: docs['title'],
+                            materialTags: <String>[...docs['tags']],
                           );
                         },
                       ));
@@ -124,7 +127,7 @@ class ListMaterialScreen extends StatelessWidget {
             } else if (ConnectionState.waiting == snapshot.connectionState) {
               return Center(child: CircularProgressIndicator.adaptive());
             } else if (snapshot.hasError) {
-              print(snapshot.error);
+              // print(snapshot.error);
               return Center(
                 child: Text(
                   '${snapshot.error}',

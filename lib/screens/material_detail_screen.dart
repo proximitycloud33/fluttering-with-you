@@ -62,7 +62,7 @@ class _MaterialDetailScreenState extends State<MaterialDetailScreen>
                         null,
                       ),
                       code: DefaultTextBlockStyle(
-                        TextStyle(color: AppColor.accentColor),
+                        TextStyle(color: AppColor.accentColor, fontSize: 12),
                         Tuple2(6, 0),
                         Tuple2(1, 0),
                         BoxDecoration(
