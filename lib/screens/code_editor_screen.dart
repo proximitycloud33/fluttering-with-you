@@ -40,112 +40,116 @@ class _CodeEditorScreenState extends State<CodeEditorScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          flex: 2,
-          child: CodeField(
-            controller: _codeController!,
-            textStyle: GoogleFonts.firaCode(letterSpacing: -0.2),
-            background: AppColor.primaryColor,
-            expands: true,
-            wrap: true,
+    return Scaffold(
+      backgroundColor: AppColor.primaryColor,
+      body: Column(
+        children: [
+          SizedBox(height: 20),
+          Expanded(
+            flex: 2,
+            child: CodeField(
+              controller: _codeController!,
+              textStyle: GoogleFonts.firaCode(letterSpacing: -0.2),
+              background: AppColor.primaryColor,
+              expands: true,
+              wrap: true,
+            ),
           ),
-        ),
-        Flexible(
-          child: CustomScrollView(
-            slivers: [
-              SliverFillRemaining(
-                hasScrollBody: false,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: AppColor.primaryColor,
-                    border: Border.all(
-                      width: 1.0,
-                      color: AppColor.accentColor,
+          Flexible(
+            child: CustomScrollView(
+              slivers: [
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColor.primaryColor,
+                      border: Border.all(
+                        width: 1.0,
+                        color: AppColor.accentColor,
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 2.0, horizontal: 8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Console',
+                                style: ThemeText.paragraph,
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  PostResult.connectionToAPI(
+                                          _codeController!.text)
+                                      .then((value) => postResult = value)
+                                      .whenComplete(() {
+                                    setState(() {});
+                                  });
+                                },
+                                child: Row(
+                                  children: const [
+                                    Icon(Icons.play_arrow),
+                                    // SizedBox(width: 10.0),
+                                    Text('Run'),
+                                  ],
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                    primary: AppColor.accentColor),
+                              )
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Output: ',
+                            style: ThemeText.paragraph,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            postResult != null ? postResult!.output : '',
+                            style: ThemeText.paragraph,
+                          ),
+                        ),
+                        Row(
+                          children: postResult != null
+                              ? [
+                                  SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  Text(
+                                    'Status Code: ' +
+                                        postResult!.statusCode.toString(),
+                                    style: ThemeText.paragraph,
+                                  ),
+                                  SizedBox(
+                                    width: 20.0,
+                                  ),
+                                  Text('CPU Time: ' + postResult!.cpuTime,
+                                      style: ThemeText.paragraph),
+                                  SizedBox(
+                                    width: 20.0,
+                                  ),
+                                  Text('Memory: ' + postResult!.memory,
+                                      style: ThemeText.paragraph),
+                                ]
+                              : [],
+                        ),
+                      ],
                     ),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 2.0, horizontal: 8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Console',
-                              style: ThemeText.paragraph,
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                PostResult.connectionToAPI(
-                                        _codeController!.text)
-                                    .then((value) => postResult = value)
-                                    .whenComplete(() {
-                                  setState(() {});
-                                });
-                              },
-                              child: Row(
-                                children: const [
-                                  Icon(Icons.play_arrow),
-                                  // SizedBox(width: 10.0),
-                                  Text('Run'),
-                                ],
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                  primary: AppColor.accentColor),
-                            )
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'Output: ',
-                          style: ThemeText.paragraph,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          postResult != null ? postResult!.output : '',
-                          style: ThemeText.paragraph,
-                        ),
-                      ),
-                      Row(
-                        children: postResult != null
-                            ? [
-                                SizedBox(
-                                  width: 10.0,
-                                ),
-                                Text(
-                                  'Status Code: ' +
-                                      postResult!.statusCode.toString(),
-                                  style: ThemeText.paragraph,
-                                ),
-                                SizedBox(
-                                  width: 20.0,
-                                ),
-                                Text('CPU Time: ' + postResult!.cpuTime,
-                                    style: ThemeText.paragraph),
-                                SizedBox(
-                                  width: 20.0,
-                                ),
-                                Text('Memory: ' + postResult!.memory,
-                                    style: ThemeText.paragraph),
-                              ]
-                            : [],
-                      ),
-                    ],
-                  ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

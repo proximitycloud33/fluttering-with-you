@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.demo.fluttering_with_you">
    <application
-        android:label="fluttering_with_you"
+        android:label="Fluttering With You"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

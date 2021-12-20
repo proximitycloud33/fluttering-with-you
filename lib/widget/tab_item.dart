@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttering_with_you/utils/constants.dart';
-import 'package:fluttering_with_you/utils/styles.dart';
 
 BottomNavigationBar myBottomNavigationBar(
     {required Function(int index) onItemTapped, required int selectedIndex}) {

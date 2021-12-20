@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttering_with_you/screens/flash_card_screen.dart';
 // screen & widgets
 
-import 'package:fluttering_with_you/screens/list_material_screen.dart';
-import 'package:fluttering_with_you/screens/code_editor_screen.dart';
-import 'package:fluttering_with_you/screens/tab_screen.dart';
-import 'package:fluttering_with_you/widget/tab_item.dart';
 import 'package:fluttering_with_you/screens/home_screen.dart';
 // packages
 import 'package:sizer/sizer.dart';
@@ -30,6 +27,9 @@ class _MyAppState extends State<MyApp> {
     return Sizer(
       builder: (context, orientation, deviceType) {
         return MaterialApp(
+          // routes: {
+          //   '/flash_card': (context) => const FlashCardScreen(),
+          // },
           home: HomeScreen(),
         );
       },

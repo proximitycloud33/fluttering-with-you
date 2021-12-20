@@ -25,7 +25,7 @@ class PostResult {
   }
   static Future<PostResult> connectionToAPI(String script) async {
     String apiURL = 'https://api.jdoodle.com/v1/execute';
-    String apiURLCreditSpent = 'https://api.jdoodle.com/v1/credit-spent';
+    // String apiURLCreditSpent = 'https://api.jdoodle.com/v1/credit-spent';
     String clientId = '6f953f9966b860aa866e961e74782a11';
     String clientSecret =
         'cf382495cbf6611d49fd7096a88bd0555d52f4ed3680367744505bb92995d66c';
@@ -48,12 +48,8 @@ class PostResult {
       headers: headers,
       body: bodyEncode,
     );
-    if (apiResult.statusCode == 200) {
-      var jsonObject = json.decode(apiResult.body);
-      return PostResult.createPostResult(jsonObject);
-    } else {
-      var jsonObject = json.decode(apiResult.body);
-      return PostResult.createPostResult(jsonObject);
-    }
+
+    var jsonObject = json.decode(apiResult.body);
+    return PostResult.createPostResult(jsonObject);
   }
 }

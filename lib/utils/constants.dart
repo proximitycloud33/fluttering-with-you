@@ -9,7 +9,7 @@ abstract class AppColor {
 abstract class Greetings {
   static const List<String> spiritGreetings = [
     'Semangat ya belajarnya semoga harimu menyenangkan',
-    'Ayok semangat menambah ilmu yang lebih baik'
+    'Ayok semangat menambah ilmu yang lebih baik',
         'Belajar itu hal yang baik',
   ];
 }
